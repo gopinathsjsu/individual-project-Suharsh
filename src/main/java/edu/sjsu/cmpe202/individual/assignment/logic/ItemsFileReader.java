@@ -23,7 +23,11 @@ public class ItemsFileReader {
                 String category = item.getCategory();
                 String itemName = item.getItem();
                 Double price = item.getPrice();
-                InputItems Item=new InputItems(category, itemName, Integer.parseInt(items[1]), price,items.length<3?null:items[2].trim());
+                Double card = 0.0;
+                if(items.length==3){
+                    card = Double.parseDouble(items[2].trim());
+                }
+                InputItems Item=new InputItems(category, itemName, Integer.parseInt(items[1]), price,items.length<3?null:String.format("%.0f",card));
                 result.add(Item);
             }else {
                 InputItems item=new InputItems(null, items[0].toUpperCase(), Integer.parseInt(items[1]), 0, null);

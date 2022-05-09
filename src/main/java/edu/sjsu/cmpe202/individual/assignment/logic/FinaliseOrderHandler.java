@@ -24,12 +24,12 @@ public class FinaliseOrderHandler implements OrderHandler{
     public void processOrder(List<InputItems> items) {
         DB db = DB.getInstance();
         double total = 0;
+        content.add("Item,Quantity,Price\n");
+        System.out.println("Before adding cards to db\n"+db.getCards());
         for(InputItems item:items) {
-
             total += db.getItems().get(item.getItem()).getPrice() * item.getQuantity();
             int currentQuantity = db.getItems().get(item.getItem()).getQuantity();
             db.getItems().get(item.getItem()).setQuantity(currentQuantity - item.getQuantity());
-
             String cardValue= item.getCardNumber();
             if(cardValue!=null)
                 db.getCards().add(cardValue);
@@ -41,7 +41,7 @@ public class FinaliseOrderHandler implements OrderHandler{
         }
         content.add("Total Amount \n");
         content.add(String.valueOf(total));
-        System.out.println("Current cards in db"+ db.getCards());
+        System.out.println("Updated cards in db\n"+ db.getCards());
         FileWriterFactory fileFactory = new FileWriterFactory();
         try {
             fileFactory.getWriterInstance("OUTPUT").writeToFile(content);
