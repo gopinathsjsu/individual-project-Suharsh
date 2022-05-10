@@ -33,7 +33,7 @@ public class DB {
         );
     }
 
-    public List<String> loadFilesFromResources(String fileName) throws IOException {
+    private List<String> loadFilesFromResources(String fileName) throws IOException {
         List<String> contents = new ArrayList<>();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
         try(BufferedReader br= new BufferedReader(new InputStreamReader(inputStream))){
